@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.example.Dinero
 import com.example.exampleapikotlin.interfaz.APIService
 import com.example.exampleapikotlin.interfaz.Comments
+import com.portafolio.test_api_kotlin.adapter.ListElement
 import com.portafolio.test_api_kotlin.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 import retrofit2.Callback
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     //private val BASE_URL = "https://jsonplaceholder.typicode.com"
     private val BASE_URL = "https://api.frankfurter.app"
-
+    val element: List<ListElement> = TODO()
     //https://www.frankfurter.app/docs/
 
 
@@ -98,4 +99,10 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
+    public fun init() {
+
+      
+
+    }
 }
