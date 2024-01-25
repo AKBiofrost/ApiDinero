@@ -18,6 +18,11 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.Call
 import retrofit2.Response
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.portafolio.test_api_kotlin.adapter.CustomAdapter
+import com.portafolio.test_api_kotlin.adapter.ItemsViewModel
+import com.portafolio.test_api_kotlin.adapter.presentacion
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +31,13 @@ class MainActivity : AppCompatActivity() {
 
     //private val BASE_URL = "https://jsonplaceholder.typicode.com"
     private val BASE_URL = "https://api.frankfurter.app"
-    val element: List<ListElement> = TODO()
+
+    private var valor="dinero"
+    private var moneda="USD"
+
+    val arrayList = ArrayList<presentacion>()//Creating an empty arraylist
+
+   // val element: List<ListElement> = TODO()
     //https://www.frankfurter.app/docs/
 
 
@@ -51,10 +62,37 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    private fun init() {
+
+        // getting the recyclerview by its id
+        val recyclerview = findViewById<RecyclerView>(R.id.recycler_activity_main)
+
+        // this creates a vertical layout Manager
+        recyclerview.layoutManager = LinearLayoutManager(this)
+
+        // ArrayList of class ItemsViewModel
+        val data = ArrayList<ItemsViewModel>()
+
+        // This loop will create 20 Views containing
+        // the image with the count of view
+        for (i in arrayList) {
+            Log.e(TAG, "init: "+i.moneda)
+            data.add(ItemsViewModel(R.drawable.ic_home_black_24dp, i.moneda+":" + i.valor))
+        }
+
+        // This will pass the ArrayList to our Adapter
+        val adapter = CustomAdapter(data)
+
+        // Setting the Adapter with the recyclerview
+        recyclerview.adapter = adapter
+
+    }
+
     /*-------------------------------------------------------------------------------------------*/
     override fun onStart() {
         super.onStart()
         getAllComments()
+        init( )
     }
 
     private fun getAllComments() {
@@ -81,6 +119,12 @@ class MainActivity : AppCompatActivity() {
                     Log.i(TAG, "-Fecha: " + response.body()?.date)
                     Log.i(TAG, "-Base: " + response.body()?.base)
                     Log.i(TAG, "-TASA USD: " + response.body()?.rates?.USD)
+
+
+                    valor=response.body()?.rates?.USD.toString()
+
+                    arrayList.add(presentacion(response.body()?.rates?.BGN.toString(),"BGN"))
+                    arrayList.add(presentacion(response.body()?.rates?.USD.toString(),"USD"))
                     Log.e(TAG, "-------------------------------------------------------")
                     /*
                      for (i in response.body()?.indices!!) {
@@ -100,9 +144,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    public fun init() {
 
-      
-
-    }
 }

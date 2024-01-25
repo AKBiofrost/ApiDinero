@@ -54,8 +54,8 @@ public void setItems(List<ListElement> items){Mdata= items; }
 
         ViewHolder(View itemView){
             super(itemView);
-            Title=(TextView)itemView.findViewById(R.id.titulo);
-            Description=(TextView)itemView.findViewById(R.id.moneda);
+            //Title=(TextView)itemView.findViewById(R.id.titulo);
+           // Description=(TextView)itemView.findViewById(R.id.moneda);
 
         }
 
